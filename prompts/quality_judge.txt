@@ -1,0 +1,30 @@
+You are evaluating the visual quality of a short video from four sampled frames.
+
+Task:
+Estimate ONLY these two visual defects:
+1. Blur: loss of spatial detail / sharpness that makes edges and textures look smeared.
+2. Underexposure: the image is too dark because insufficient light is captured; do not confuse naturally dark objects or a night scene with underexposure unless visible details are being lost.
+
+Use a 0–4 ordinal scale for each defect:
+- 0 = none / not perceptible
+- 1 = slight
+- 2 = moderate
+- 3 = strong
+- 4 = severe; important details are difficult to see
+
+Judge the overall clip represented by all four frames, not just the worst frame. If the frames vary, estimate the typical level and mention the variation briefly. Do not infer the intended camera settings or use scene semantics as a proxy for quality. Do not penalize motion in the scene unless the image itself visibly has motion blur. Be conservative: if the evidence is ambiguous, use a lower score and say so.
+
+Return ONLY valid JSON, with exactly these keys:
+{
+  "blur_score": 0,
+  "underexposure_score": 0,
+  "blur_confidence": "low|medium|high",
+  "underexposure_confidence": "low|medium|high",
+  "visible_evidence": {
+    "blur": "brief visual evidence",
+    "underexposure": "brief visual evidence"
+  },
+  "frame_variation": "brief note about variation across the four frames",
+  "uncertainty": "brief note, or empty string"
+}
+Scores must be integers from 0 to 4. Do not output markdown fences or any text outside the JSON object.
