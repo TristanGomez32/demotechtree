@@ -236,11 +236,11 @@ def main():
         h, w = frames[0].shape[:2]
         base_id = f"{vid_name}_t{int(start):05d}"
 
-        variants = [("NONE", 0, "none", 0.0, frames)]
+        variants = [("none", 0, "none", 0.0, frames)]
         for lvl, sigma in enumerate(args.blur_sigmas, start=1):
-            variants.append(("BLUR", lvl, "gaussian_sigma_px", sigma, apply_blur(frames, sigma)))
+            variants.append(("blur", lvl, "gaussian_sigma_px", sigma, apply_blur(frames, sigma)))
         for lvl, ev in enumerate(args.ev_stops, start=1):
-            variants.append(("UNDEREXPOSED", lvl, "exposure_ev_stops", ev, apply_underexposure(frames, ev)))
+            variants.append(("underexposure", lvl, "exposure_ev_stops", ev, apply_underexposure(frames, ev)))
 
         for code, lvl, pname, pval, vframes in variants:
             suffix = "clean" if code == "NONE" else f"{code.lower()}_L{lvl}"
