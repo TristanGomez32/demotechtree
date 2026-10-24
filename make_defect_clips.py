@@ -243,8 +243,8 @@ def main():
             variants.append(("underexposure", lvl, "exposure_ev_stops", ev, apply_underexposure(frames, ev)))
 
         for code, lvl, pname, pval, vframes in variants:
-            suffix = "clean" if code == "NONE" else f"{code.lower()}_L{lvl}"
-            clip_id = f"{base_id}_{suffix}"
+            suffix = "" if code == "none" else f"_{code.lower()}_L{lvl}"
+            clip_id = f"{base_id}{suffix}"
             out_path = clips_dir / f"{clip_id}.mp4"
             sharp, luma = measure(vframes)
             write_video(out_path, vframes, out_fps)
